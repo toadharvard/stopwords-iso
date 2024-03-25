@@ -29,7 +29,10 @@ func NewStopwordsMapping() (StopwordsMapping, error) {
 	}
 
 	mapping := make(map[string][]string)
-	json.Unmarshal(jsonFile, &mapping)
+	err = json.Unmarshal(jsonFile, &mapping)
+	if err != nil {
+		return *new(StopwordsMapping), err
+	}
 	return mapping, nil
 }
 
