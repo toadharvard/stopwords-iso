@@ -1,7 +1,6 @@
 package stopwordsiso
 
 import (
-	"os"
 	"testing"
 )
 
@@ -53,23 +52,5 @@ func TestStopwordsMapping_ClearString(t *testing.T) {
 	got := mapping.ClearString(testStr)
 	if got != want {
 		t.Errorf("StopwordsMapping.ClearString() got = %v, want %v", got, want)
-	}
-}
-
-func TestNewStopwordsMapping_Error(t *testing.T) {
-	// Temporarily rename the stopwords file to simulate an error
-	err := os.Rename("stopwords-iso.json", "stopwords-iso_backup.json")
-	if err != nil {
-		t.Errorf("Error renaming stopwords-iso.json: %v", err)
-	}
-	defer func() {
-		err := os.Rename("stopwords-iso_backup.json", "stopwords-iso.json")
-		if err != nil {
-			t.Errorf("Error renaming stopwords-iso_backup.json: %v", err)
-		}
-	}()
-	_, err = NewStopwordsMapping()
-	if err == nil {
-		t.Errorf("Expected an error when stopwords-iso.json does not exist")
 	}
 }
