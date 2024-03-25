@@ -1,8 +1,8 @@
 package stopwordsiso
 
 import (
+	"embed"
 	"encoding/json"
-	"os"
 	"regexp"
 	"slices"
 	"strings"
@@ -17,13 +17,16 @@ func standardizeSpaces(str string) string {
 	return strings.Join(strings.Fields(str), " ")
 }
 
+//go:embed stopwords-iso.json
+var jsonFile embed.FS
+
 // NewStopwordsMapping initializes a new StopwordsMapping from a JSON file.
 //
 // Returns:
 // - StopwordsMapping: a map containing language to stopwords mapping.
 // - error: an error object if an error occurred while reading or unmarshaling the JSON file.
 func NewStopwordsMapping() (StopwordsMapping, error) {
-	jsonFile, err := os.ReadFile("stopwords-iso.json")
+	jsonFile, err := jsonFile.ReadFile("stopwords-iso.json")
 	if err != nil {
 		return *new(StopwordsMapping), err
 	}
