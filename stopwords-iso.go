@@ -80,5 +80,5 @@ func (m *StopwordsMapping) ClearString(str string) string {
 // isStopword checks if the given word is a stopword for the specified language.
 // It takes a word string and a language ISOCode639_1 as parameters and returns a boolean.
 func (m *StopwordsMapping) IsStopword(word string, language ISOCode639_1) bool {
-	return !slices.Contains((*m)[language], strings.ToLower(word))
+	return slices.Contains((*m)[language], strings.ToLower(word))
 }
