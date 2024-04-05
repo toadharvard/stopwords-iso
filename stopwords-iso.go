@@ -56,7 +56,7 @@ func (m *StopwordsMapping) ClearStringByLang(str string, language ISOCode639_1) 
 
 	filtered := []string{}
 	for _, word := range words {
-		if !m.isStopword(word, language) {
+		if !m.IsStopword(word, language) {
 			filtered = append(filtered, word)
 		}
 	}
@@ -79,6 +79,6 @@ func (m *StopwordsMapping) ClearString(str string) string {
 
 // isStopword checks if the given word is a stopword for the specified language.
 // It takes a word string and a language ISOCode639_1 as parameters and returns a boolean.
-func (m *StopwordsMapping) isStopword(word string, language ISOCode639_1) bool {
+func (m *StopwordsMapping) IsStopword(word string, language ISOCode639_1) bool {
 	return !slices.Contains((*m)[language], strings.ToLower(word))
 }
